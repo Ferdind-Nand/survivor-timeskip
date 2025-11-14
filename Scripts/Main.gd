@@ -1,6 +1,6 @@
 extends Node2D
 #print("Debug message: ")
-
+#changes made
 signal augment_selected(augment_number)
 signal stat_increase(stat_name, increase_value)
 
