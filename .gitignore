@@ -1,11 +1,3 @@
 
 .godot/
 *.cfg
-
-*.ctex
-
-*.md5
-
-*.fontdata
-
-*.import
