@@ -1,0 +1,262 @@
+[gd_scene load_steps=8 format=3 uid="uid://caqnyutvhi0wq"]
+
+[ext_resource type="Script" path="res://Scripts/survivors_game.gd" id="1_arybw"]
+[ext_resource type="PackedScene" uid="uid://invqav08ym84" path="res://player.tscn" id="1_v562c"]
+[ext_resource type="PackedScene" uid="uid://w2yt158768o7" path="res://pine_tree.tscn" id="2_ytarq"]
+[ext_resource type="FontFile" uid="uid://bohwx3lgysra8" path="res://Assets/Fonts/Kenney Pixel Square.ttf" id="4_b6r35"]
+[ext_resource type="Texture2D" uid="uid://j0r471e545xb" path="res://Assets/Tiles/Large tiles/Thick outline/tile_0001.png" id="5_mo6gr"]
+[ext_resource type="FontFile" uid="uid://2d1cdbkh18m5" path="res://Assets/Fonts/Kenney Pixel.ttf" id="5_on5ut"]
+
+[sub_resource type="Curve2D" id="Curve2D_d4kkj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -170, -284, 0, 0, 0, 0, 2209, -278, 0, 0, 0, 0, 2209, 1334, 0, 0, 0, 0, -165, 1346, 0, 0, 0, 0, -170, -284)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_arybw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = -40.0
+offset_top = -45.0
+offset_right = 1989.0
+offset_bottom = 1126.0
+
+[node name="Player" parent="." instance=ExtResource("1_v562c")]
+position = Vector2(492, 617)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-492, -617)
+curve = SubResource("Curve2D_d4kkj")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(1637.24, 1336.89)
+rotation = 3.13654
+progress = 4562.78
+
+[node name="Trees" type="Node" parent="."]
+
+[node name="PineTree" parent="Trees" instance=ExtResource("2_ytarq")]
+position = Vector2(296, 540)
+
+[node name="PineTree2" parent="Trees" instance=ExtResource("2_ytarq")]
+position = Vector2(343, 605)
+scale = Vector2(0.935743, 0.917222)
+
+[node name="PineTree3" parent="Trees" instance=ExtResource("2_ytarq")]
+position = Vector2(275, 631)
+
+[node name="PineTree4" parent="Trees" instance=ExtResource("2_ytarq")]
+position = Vector2(1327, 669)
+
+[node name="PineTree5" parent="Trees" instance=ExtResource("2_ytarq")]
+position = Vector2(1391, 281)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.552941)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "Game Over"
+
+[node name="RestartButton" type="Button" parent="GameOver"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = 91.0
+offset_right = 102.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+button_mask = 7
+text = "Restart"
+expand_icon = true
+
+[node name="ExitButton" type="Button" parent="GameOver"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -194.0
+offset_right = 4.0
+offset_bottom = -186.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 26
+text = "EXIT GAME"
+
+[node name="AugmentSelection" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+
+[node name="Augment1" type="Button" parent="AugmentSelection"]
+unique_name_in_owner = true
+offset_left = 306.0
+offset_top = 286.0
+offset_right = 606.0
+offset_bottom = 786.0
+
+[node name="Title" type="Label" parent="AugmentSelection/Augment1"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 300.0
+offset_bottom = 110.0
+theme_override_fonts/font = ExtResource("4_b6r35")
+theme_override_font_sizes/font_size = 25
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="AugmentSelection/Augment1"]
+layout_mode = 0
+offset_top = 250.0
+offset_right = 300.0
+offset_bottom = 300.0
+theme_override_fonts/font = ExtResource("5_on5ut")
+theme_override_font_sizes/font_size = 35
+text = "100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="Sprite2D" parent="AugmentSelection/Augment1"]
+texture_filter = 1
+position = Vector2(150, 250)
+scale = Vector2(9.375, 15.625)
+texture = ExtResource("5_mo6gr")
+
+[node name="Augment2" type="Button" parent="AugmentSelection"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -254.0
+offset_right = 146.0
+offset_bottom = 246.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="AugmentSelection/Augment2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.38
+anchor_top = 0.179
+anchor_right = 0.613333
+anchor_bottom = 0.179
+offset_left = -114.0
+offset_top = -29.5
+offset_right = 116.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_b6r35")
+theme_override_font_sizes/font_size = 25
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Value" type="Label" parent="AugmentSelection/Augment2"]
+layout_mode = 0
+offset_top = 250.0
+offset_right = 300.0
+offset_bottom = 300.0
+theme_override_fonts/font = ExtResource("5_on5ut")
+theme_override_font_sizes/font_size = 35
+text = "100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="Sprite2D" parent="AugmentSelection/Augment2"]
+
+[node name="Augment3" type="Button" parent="AugmentSelection"]
+unique_name_in_owner = true
+offset_left = 1306.0
+offset_top = 286.0
+offset_right = 1606.0
+offset_bottom = 786.0
+
+[node name="Title" type="Label" parent="AugmentSelection/Augment3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -190.0
+offset_right = 150.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_b6r35")
+theme_override_font_sizes/font_size = 25
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="AugmentSelection/Augment3"]
+layout_mode = 0
+offset_top = 250.0
+offset_right = 300.0
+offset_bottom = 300.0
+theme_override_fonts/font = ExtResource("5_on5ut")
+theme_override_font_sizes/font_size = 35
+text = "100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="Sprite2D" parent="AugmentSelection/Augment3"]
+
+[connection signal="augment_selected" from="." to="." method="_on_augment_selected"]
+[connection signal="stat_increase" from="." to="Player" method="_on_game_stat_increase"]
+[connection signal="augment_selection" from="Player" to="." method="_on_player_augment_selection"]
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="GameOver/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="GameOver/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="AugmentSelection/Augment1" to="." method="_on_augment_1_pressed"]
+[connection signal="pressed" from="AugmentSelection/Augment2" to="." method="_on_augment_2_pressed"]
+[connection signal="pressed" from="AugmentSelection/Augment3" to="." method="_on_augment_3_pressed"]

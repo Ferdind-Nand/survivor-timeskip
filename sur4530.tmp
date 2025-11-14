@@ -1,0 +1,107 @@
+[gd_scene load_steps=5 format=3 uid="uid://caqnyutvhi0wq"]
+
+[ext_resource type="Script" path="res://survivors_game.gd" id="1_arybw"]
+[ext_resource type="PackedScene" uid="uid://invqav08ym84" path="res://player.tscn" id="1_v562c"]
+[ext_resource type="PackedScene" uid="uid://w2yt158768o7" path="res://pine_tree.tscn" id="2_ytarq"]
+
+[sub_resource type="Curve2D" id="Curve2D_d4kkj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -170, -284, 0, 0, 0, 0, 2209, -278, 0, 0, 0, 0, 2209, 1334, 0, 0, 0, 0, -165, 1346, 0, 0, 0, 0, -170, -284)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_arybw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = -40.0
+offset_top = -45.0
+offset_right = 1989.0
+offset_bottom = 1126.0
+
+[node name="Player" parent="." instance=ExtResource("1_v562c")]
+position = Vector2(492, 617)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-492, -617)
+curve = SubResource("Curve2D_d4kkj")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(1637.24, 1336.89)
+rotation = 3.13654
+progress = 4562.78
+
+[node name="PineTree" parent="." instance=ExtResource("2_ytarq")]
+position = Vector2(296, 540)
+
+[node name="PineTree2" parent="." instance=ExtResource("2_ytarq")]
+position = Vector2(343, 605)
+scale = Vector2(0.935743, 0.917222)
+
+[node name="PineTree3" parent="." instance=ExtResource("2_ytarq")]
+position = Vector2(275, 631)
+
+[node name="PineTree4" parent="." instance=ExtResource("2_ytarq")]
+position = Vector2(1327, 669)
+
+[node name="PineTree5" parent="." instance=ExtResource("2_ytarq")]
+position = Vector2(1391, 281)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.552941)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "Game Over"
+
+[node name="RestartButton" type="Button" parent="GameOver"]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = 91.0
+offset_right = 102.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+button_mask = 7
+text = "Restart"
+expand_icon = true
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="GameOver/RestartButton" to="." method="_on_restart_button_pressed"]
