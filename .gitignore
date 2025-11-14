@@ -1,3 +1,20 @@
 
 .godot/
+.import/
+
+
+.DS_Store
+Thumbs.db
+
 *.cfg
+
+*.ctex
+
+*.md5
+
+*.fontdata
+
+*.import
+
+*.tmp
+*.log
